@@ -7,6 +7,9 @@
   <meta name="keywords" content="BMI calculator, health tracker, body mass index, fitness">
   <meta name="author" content="HealthTrack Pro">
   
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ url_for('https://static.vecteezy.com/system/resources/previews/016/828/833/original/bmi-classification-chart-measurement-woman-colorful-infographic-with-ruler-female-body-mass-index-scale-collection-from-underweight-to-overweight-fit-person-different-weight-level-eps-vector.jpg') }}">
+  
   <!-- Preconnect for Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +38,10 @@
     <!-- Application Header -->
     <header class="app-header">
       <div class="logo-container">
+        <!-- Logo Image (Option 1: Use Image instead of icon) -->
         <div class="logo-icon" aria-hidden="true">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="HealthTrack Pro Logo" class="logo-image">
+          <!-- Fallback to icon if no image -->
           <i class="fas fa-heartbeat"></i>
         </div>
         <div class="logo-text">
@@ -270,6 +276,16 @@
               <i class="fas fa-exclamation-triangle info-icon" aria-hidden="true"></i>
             </div>
           </div>
+
+          <!-- BMI Chart Image -->
+          <div class="bmi-chart-container">
+            <img 
+              src="{{ url_for('static', filename='images/bmi-chart.png') }}" 
+              alt="BMI Chart showing different weight categories" 
+              class="bmi-chart-image"
+              loading="lazy"
+            >
+          </div>
         </article>
 
         <!-- Health Tips Card -->
@@ -284,6 +300,7 @@
           <ul class="tips-list">
             <li class="tip-item">
               <div class="tip-icon" aria-hidden="true">
+                <img src="{{ url_for('static', filename='images/icons/nutrition.png') }}" alt="" class="tip-icon-img">
                 <i class="fas fa-apple-alt"></i>
               </div>
               <p>Maintain a balanced diet rich in fruits and vegetables</p>
@@ -291,6 +308,7 @@
             
             <li class="tip-item">
               <div class="tip-icon" aria-hidden="true">
+                <img src="{{ url_for('static', filename='images/icons/exercise.png') }}" alt="" class="tip-icon-img">
                 <i class="fas fa-running"></i>
               </div>
               <p>Exercise regularly for at least 30 minutes daily</p>
@@ -298,6 +316,7 @@
             
             <li class="tip-item">
               <div class="tip-icon" aria-hidden="true">
+                <img src="{{ url_for('static', filename='images/icons/sleep.png') }}" alt="" class="tip-icon-img">
                 <i class="fas fa-bed"></i>
               </div>
               <p>Get 7-9 hours of quality sleep each night</p>
@@ -305,6 +324,7 @@
             
             <li class="tip-item">
               <div class="tip-icon" aria-hidden="true">
+                <img src="{{ url_for('static', filename='images/icons/hydration.png') }}" alt="" class="tip-icon-img">
                 <i class="fas fa-tint"></i>
               </div>
               <p>Stay hydrated with 8 glasses of water daily</p>
@@ -338,6 +358,16 @@
               </div>
             </div>
           </div>
+
+          <!-- Success Stories Image Banner -->
+          <div class="success-banner">
+            <img 
+              src="{{ url_for('static', filename='images/success-stories.jpg') }}" 
+              alt="Success stories from HealthTrack Pro users" 
+              class="success-image"
+              loading="lazy"
+            >
+          </div>
         </article>
       </aside>
     </main>
@@ -352,6 +382,15 @@
         <span aria-hidden="true">•</span>
         <a href="#support">Support</a>
       </nav>
+      
+      <!-- Footer Logo -->
+      <div class="footer-logo">
+        <img 
+          src="{{ url_for('static', filename='images/logo-white.png') }}" 
+          alt="HealthTrack Pro" 
+          class="footer-logo-img"
+        >
+      </div>
     </footer>
   </div>
 
