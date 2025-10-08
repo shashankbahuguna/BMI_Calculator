@@ -1,400 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Professional BMI Calculator - Calculate your Body Mass Index with HealthTrack Pro">
-  <meta name="keywords" content="BMI calculator, health tracker, body mass index, fitness">
-  <meta name="author" content="HealthTrack Pro">
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="{{ url_for('https://static.vecteezy.com/system/resources/previews/016/828/833/original/bmi-classification-chart-measurement-woman-colorful-infographic-with-ruler-female-body-mass-index-scale-collection-from-underweight-to-overweight-fit-person-different-weight-level-eps-vector.jpg') }}">
-  
-  <!-- Preconnect for Performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-  
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
-  
-  <title>HealthTrack Pro | Professional BMI Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Metrics Calculator | BMI, BMR & TDEE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-  <!-- Animated Background Layer -->
-  <div class="background-wrapper" aria-hidden="true">
-    <div class="gradient-orb orb-1"></div>
-    <div class="gradient-orb orb-2"></div>
-    <div class="gradient-orb orb-3"></div>
-    <div class="mesh-gradient"></div>
-  </div>
-
-  <!-- Main Application Container -->
-  <div class="main-container">
     
-    <!-- Application Header -->
-    <header class="app-header">
-      <div class="logo-container">
-        <!-- Logo Image (Option 1: Use Image instead of icon) -->
-        <div class="logo-icon" aria-hidden="true">
-          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="HealthTrack Pro Logo" class="logo-image">
-          <!-- Fallback to icon if no image -->
-          <i class="fas fa-heartbeat"></i>
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Hero Header Section -->
+    <header class="hero-section">
+        <div class="container">
+            <div class="hero-content text-center">
+                <div class="hero-icon mb-3">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h1 class="hero-title">Health Metrics Calculator</h1>
+                <p class="hero-subtitle">Calculate your BMI, BMR, and TDEE in seconds</p>
+                <div class="hero-badges">
+                    <span class="badge-pill"><i class="fas fa-shield-alt me-1"></i> Privacy First</span>
+                    <span class="badge-pill"><i class="fas fa-bolt me-1"></i> Instant Results</span>
+                    <span class="badge-pill"><i class="fas fa-chart-line me-1"></i> Science-Based</span>
+                </div>
+            </div>
         </div>
-        <div class="logo-text">
-          <h1>HealthTrack<span class="pro-badge">Pro</span></h1>
-          <p class="tagline">Your Personal Health Intelligence</p>
-        </div>
-      </div>
-      <nav class="header-actions" aria-label="Header Actions">
-        <button class="icon-button" aria-label="Notifications">
-          <i class="fas fa-bell"></i>
-          <span class="notification-dot" aria-hidden="true"></span>
-        </button>
-        <button class="icon-button" aria-label="Settings">
-          <i class="fas fa-cog"></i>
-        </button>
-      </nav>
     </header>
 
-    <!-- Main Content Grid -->
-    <main class="content-grid">
-      
-      <!-- BMI Calculator Section -->
-      <section class="glass-card calculator-card" aria-labelledby="calculator-heading">
-        <div class="card-header">
-          <div class="card-title">
-            <i class="fas fa-calculator-alt" aria-hidden="true"></i>
-            <h2 id="calculator-heading">BMI Calculator</h2>
-          </div>
-          <span class="badge">Quick Analysis</span>
+    <!-- Main Calculator Section -->
+    <div class="container main-container">
+        <div class="calculator-wrapper">
+            
+            <!-- Calculator Card -->
+            <div class="calculator-card">
+                <div class="card-gradient-header">
+                    <h2 class="mb-0"><i class="fas fa-calculator me-2"></i>Calculate Your Metrics</h2>
+                </div>
+                
+                <div class="card-body-custom">
+                    <form id="calculator-form">
+                        
+                        <!-- Unit System Toggle -->
+                        <div class="unit-toggle-wrapper mb-4">
+                            <label class="form-label-custom">Measurement System</label>
+                            <div class="toggle-group">
+                                <input type="radio" class="btn-check" name="unit-system" id="metric" value="metric" checked>
+                                <label class="btn btn-toggle" for="metric">
+                                    <i class="fas fa-weight me-2"></i>Metric (kg, m)
+                                </label>
+                                
+                                <input type="radio" class="btn-check" name="unit-system" id="imperial" value="imperial">
+                                <label class="btn btn-toggle" for="imperial">
+                                    <i class="fas fa-ruler me-2"></i>Imperial (lb, in)
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Basic Measurements -->
+                        <div class="measurements-grid">
+                            <div class="input-group-custom">
+                                <label for="weight" class="form-label-custom">
+                                    <i class="fas fa-weight-hanging icon-accent"></i>
+                                    Weight
+                                </label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="weight" class="form-control-custom" step="0.1" min="1" placeholder="70" required>
+                                    <span class="input-unit" id="weight-unit">kg</span>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group-custom">
+                                <label for="height" class="form-label-custom">
+                                    <i class="fas fa-ruler-vertical icon-accent"></i>
+                                    Height
+                                </label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="height" class="form-control-custom" step="0.01" min="0.1" placeholder="1.75" required>
+                                    <span class="input-unit" id="height-unit">m</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Advanced Metrics Section -->
+                        <div class="advanced-section">
+                            <div class="section-header">
+                                <h5 class="section-title">
+                                    <i class="fas fa-sliders-h me-2"></i>
+                                    Advanced Metrics
+                                </h5>
+                                <span class="section-subtitle">For BMR & TDEE calculation</span>
+                            </div>
+                            
+                            <div class="advanced-grid">
+                                <div class="input-group-custom">
+                                    <label for="age" class="form-label-custom">
+                                        <i class="fas fa-birthday-cake icon-accent"></i>
+                                        Age
+                                    </label>
+                                    <input type="number" id="age" class="form-control-custom" min="1" max="120" value="25" required>
+                                </div>
+                                
+                                <div class="input-group-custom">
+                                    <label for="gender" class="form-label-custom">
+                                        <i class="fas fa-venus-mars icon-accent"></i>
+                                        Gender
+                                    </label>
+                                    <select id="gender" class="form-control-custom">
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="input-group-custom full-width">
+                                    <label for="activity-level" class="form-label-custom">
+                                        <i class="fas fa-running icon-accent"></i>
+                                        Activity Level
+                                    </label>
+                                    <select id="activity-level" class="form-control-custom">
+                                        <option value="sedentary">Sedentary - Little or no exercise</option>
+                                        <option value="light">Lightly Active - Exercise 1-3 days/week</option>
+                                        <option value="moderate" selected>Moderately Active - Exercise 3-5 days/week</option>
+                                        <option value="very_active">Very Active - Exercise 6-7 days/week</option>
+                                        <option value="extra_active">Extra Active - Intense exercise 2x/day</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Calculate Button -->
+                        <button type="submit" class="btn-calculate">
+                            <span class="btn-text">Calculate Health Metrics</span>
+                            <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </form>
+
+                    <!-- Error Message -->
+                    <div class="alert-custom alert-danger d-none" id="error-message" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        <span id="error-text"></span>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div id="result-area" class="results-section d-none">
+                        <div class="results-header">
+                            <i class="fas fa-check-circle success-icon"></i>
+                            <h3>Your Health Metrics</h3>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <!-- BMI Card -->
+                            <div class="metric-card bmi-card">
+                                <div class="metric-icon">
+                                    <i class="fas fa-weight"></i>
+                                </div>
+                                <div class="metric-content">
+                                    <span class="metric-label">Body Mass Index</span>
+                                    <div class="metric-value" id="bmi-value">--</div>
+                                    <span class="metric-badge" id="bmi-category">--</span>
+                                </div>
+                            </div>
+                            
+                            <!-- BMR Card -->
+                            <div class="metric-card bmr-card">
+                                <div class="metric-icon">
+                                    <i class="fas fa-fire"></i>
+                                </div>
+                                <div class="metric-content">
+                                    <span class="metric-label">Basal Metabolic Rate</span>
+                                    <div class="metric-value" id="bmr-value">--</div>
+                                    <span class="metric-unit">calories/day at rest</span>
+                                </div>
+                            </div>
+                            
+                            <!-- TDEE Card -->
+                            <div class="metric-card tdee-card">
+                                <div class="metric-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="metric-content">
+                                    <span class="metric-label">Total Daily Energy</span>
+                                    <div class="metric-value" id="tdee-value">--</div>
+                                    <span class="metric-unit">calories/day with activity</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Weight Recommendation -->
+                        <div class="recommendation-box">
+                            <i class="fas fa-lightbulb me-2"></i>
+                            <span id="weight-recommendation"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Cards Section -->
+            <div class="info-cards-section">
+                <div class="info-card">
+                    <div class="info-icon bmi-info">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h4>BMI Categories</h4>
+                    <ul class="category-list">
+                        <li><span class="category-dot underweight"></span>Under 18.5 - Underweight</li>
+                        <li><span class="category-dot normal"></span>18.5 - 24.9 - Normal Weight</li>
+                        <li><span class="category-dot overweight"></span>25.0 - 29.9 - Overweight</li>
+                        <li><span class="category-dot obese"></span>30.0+ - Obesity</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon bmr-info">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h4>What is BMR?</h4>
+                    <p>Basal Metabolic Rate (BMR) is the number of calories your body needs to perform basic life-sustaining functions at rest, such as breathing and circulation.</p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon tdee-info">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h4>Understanding TDEE</h4>
+                    <p>Total Daily Energy Expenditure (TDEE) is your BMR multiplied by your activity level. It represents the total calories you burn each day.</p>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <!-- BMI Calculation Form -->
-        <form method="POST" action="{{ url_for('index') }}" class="bmi-form" id="bmiForm" novalidate>
-          
-          <!-- Height Input Group -->
-          <div class="form-group">
-            <label for="height" class="form-label">
-              <i class="fas fa-arrows-alt-v" aria-hidden="true"></i>
-              <span>Height</span>
-            </label>
-            <div class="input-wrapper">
-              <input 
-                type="number" 
-                id="height" 
-                name="height" 
-                class="form-input"
-                placeholder="175" 
-                step="0.1" 
-                min="50"
-                max="300"
-                required
-                autocomplete="off"
-                aria-describedby="height-help"
-              >
-              <span class="input-unit" aria-hidden="true">cm</span>
-            </div>
-            <small id="height-help" class="sr-only">Enter your height in centimeters between 50 and 300</small>
-          </div>
-
-          <!-- Weight Input Group -->
-          <div class="form-group">
-            <label for="weight" class="form-label">
-              <i class="fas fa-weight-hanging" aria-hidden="true"></i>
-              <span>Weight</span>
-            </label>
-            <div class="input-wrapper">
-              <input 
-                type="number" 
-                id="weight" 
-                name="weight" 
-                class="form-input"
-                placeholder="70" 
-                step="0.1" 
-                min="20"
-                max="500"
-                required
-                autocomplete="off"
-                aria-describedby="weight-help"
-              >
-              <span class="input-unit" aria-hidden="true">kg</span>
-            </div>
-            <small id="weight-help" class="sr-only">Enter your weight in kilograms between 20 and 500</small>
-          </div>
-
-          <!-- Gender Selection Group -->
-          <div class="form-group">
-            <label class="form-label">
-              <i class="fas fa-venus-mars" aria-hidden="true"></i>
-              <span>Gender</span>
-            </label>
-            <div class="gender-toggle" role="radiogroup" aria-label="Select gender">
-              <input type="radio" name="gender" value="male" id="male" checked>
-              <label for="male" class="gender-option">
-                <i class="fas fa-mars" aria-hidden="true"></i>
-                <span>Male</span>
-              </label>
-              
-              <input type="radio" name="gender" value="female" id="female">
-              <label for="female" class="gender-option">
-                <i class="fas fa-venus" aria-hidden="true"></i>
-                <span>Female</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <button type="submit" class="submit-btn">
-            <span class="btn-text">Calculate BMI</span>
-            <i class="fas fa-arrow-right" aria-hidden="true"></i>
-            <div class="btn-shimmer" aria-hidden="true"></div>
-          </button>
-        </form>
-
-        <!-- Results Display -->
-        {% if bmi %}
-        <div class="results-container animate-in" role="region" aria-live="polite" aria-labelledby="results-heading">
-          <div class="results-header">
-            <h3 id="results-heading">Your Results</h3>
-            <button class="reset-btn" onclick="window.location.reload()" aria-label="Reset calculator">
-              <i class="fas fa-redo" aria-hidden="true"></i>
-            </button>
-          </div>
-
-          <!-- BMI Score Display -->
-          <div class="bmi-score">
-            <div class="score-circle">
-              <svg class="progress-ring" viewBox="0 0 120 120" role="img" aria-label="BMI Progress Circle">
-                <circle class="progress-ring-bg" cx="60" cy="60" r="54"></circle>
-                <circle 
-                  class="progress-ring-fill {{ bmi_category.lower().replace(' ', '-') }}" 
-                  cx="60" 
-                  cy="60" 
-                  r="54"
-                  style="--progress: {{ (min(max(bmi,10),40)-10)/30*100 }}%"
-                ></circle>
-              </svg>
-              <div class="score-value">
-                <span class="bmi-number">{{ "%.1f"|format(bmi) }}</span>
-                <span class="bmi-label">BMI</span>
-              </div>
-            </div>
-            
-            <div class="score-details">
-              <div class="category-badge {{ bmi_category.lower().replace(' ', '-') }}" role="status">
-                {{ bmi_category }}
-              </div>
-              <p class="category-description">{{ bmi_message }}</p>
-            </div>
-          </div>
-
-          <!-- BMI Range Indicator -->
-          <div class="range-indicator" role="img" aria-label="BMI Range Scale">
-            <div class="range-track">
-              <div class="range-segment underweight" aria-label="Underweight range"></div>
-              <div class="range-segment normal" aria-label="Normal weight range"></div>
-              <div class="range-segment overweight" aria-label="Overweight range"></div>
-              <div class="range-segment obese" aria-label="Obese range"></div>
-              <div 
-                class="range-marker" 
-                style="left:(min(max(bmi,15),40)-15)/25*100%"
-                aria-hidden="true"
-              >
-                <div class="marker-dot"></div>
-              </div>
-            </div>
-            <div class="range-labels">
-              <span>15</span>
-              <span>18.5</span>
-              <span>25</span>
-              <span>30</span>
-              <span>40</span>
-            </div>
-          </div>
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="container text-center">
+            <p class="mb-2"><i class="fas fa-shield-alt me-2"></i>Your data is processed locally and never stored</p>
+            <p class="footer-note">This calculator provides estimates. Consult healthcare professionals for personalized advice.</p>
         </div>
-        {% endif %}
-
-        <!-- Error Display -->
-        {% if error %}
-        <div class="error-alert animate-in" role="alert" aria-live="assertive">
-          <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
-          <p>{{ error }}</p>
-        </div>
-        {% endif %}
-      </section>
-
-      <!-- Information Sidebar -->
-      <aside class="info-section" aria-label="BMI Information">
-        
-        <!-- BMI Categories Information Card -->
-        <article class="glass-card info-card" aria-labelledby="categories-heading">
-          <div class="card-header">
-            <div class="card-title">
-              <i class="fas fa-chart-pie" aria-hidden="true"></i>
-              <h3 id="categories-heading">BMI Categories</h3>
-            </div>
-          </div>
-          
-          <div class="categories-list">
-            <div class="category-item">
-              <div class="category-indicator underweight" aria-hidden="true"></div>
-              <div class="category-info">
-                <h4>Underweight</h4>
-                <p>BMI &lt; 18.5</p>
-              </div>
-              <i class="fas fa-info-circle info-icon" aria-hidden="true"></i>
-            </div>
-            
-            <div class="category-item">
-              <div class="category-indicator normal" aria-hidden="true"></div>
-              <div class="category-info">
-                <h4>Normal Weight</h4>
-                <p>BMI 18.5 - 24.9</p>
-              </div>
-              <i class="fas fa-check-circle info-icon" aria-hidden="true"></i>
-            </div>
-            
-            <div class="category-item">
-              <div class="category-indicator overweight" aria-hidden="true"></div>
-              <div class="category-info">
-                <h4>Overweight</h4>
-                <p>BMI 25 - 29.9</p>
-              </div>
-              <i class="fas fa-exclamation-circle info-icon" aria-hidden="true"></i>
-            </div>
-            
-            <div class="category-item">
-              <div class="category-indicator obese" aria-hidden="true"></div>
-              <div class="category-info">
-                <h4>Obese</h4>
-                <p>BMI ≥ 30</p>
-              </div>
-              <i class="fas fa-exclamation-triangle info-icon" aria-hidden="true"></i>
-            </div>
-          </div>
-
-          <!-- BMI Chart Image -->
-          <div class="bmi-chart-container">
-            <img 
-              src="{{ url_for('static', filename='images/bmi-chart.png') }}" 
-              alt="BMI Chart showing different weight categories" 
-              class="bmi-chart-image"
-              loading="lazy"
-            >
-          </div>
-        </article>
-
-        <!-- Health Tips Card -->
-        <article class="glass-card tips-card" aria-labelledby="tips-heading">
-          <div class="card-header">
-            <div class="card-title">
-              <i class="fas fa-lightbulb" aria-hidden="true"></i>
-              <h3 id="tips-heading">Health Tips</h3>
-            </div>
-          </div>
-          
-          <ul class="tips-list">
-            <li class="tip-item">
-              <div class="tip-icon" aria-hidden="true">
-                <img src="{{ url_for('static', filename='images/icons/nutrition.png') }}" alt="" class="tip-icon-img">
-                <i class="fas fa-apple-alt"></i>
-              </div>
-              <p>Maintain a balanced diet rich in fruits and vegetables</p>
-            </li>
-            
-            <li class="tip-item">
-              <div class="tip-icon" aria-hidden="true">
-                <img src="{{ url_for('static', filename='images/icons/exercise.png') }}" alt="" class="tip-icon-img">
-                <i class="fas fa-running"></i>
-              </div>
-              <p>Exercise regularly for at least 30 minutes daily</p>
-            </li>
-            
-            <li class="tip-item">
-              <div class="tip-icon" aria-hidden="true">
-                <img src="{{ url_for('static', filename='images/icons/sleep.png') }}" alt="" class="tip-icon-img">
-                <i class="fas fa-bed"></i>
-              </div>
-              <p>Get 7-9 hours of quality sleep each night</p>
-            </li>
-            
-            <li class="tip-item">
-              <div class="tip-icon" aria-hidden="true">
-                <img src="{{ url_for('static', filename='images/icons/hydration.png') }}" alt="" class="tip-icon-img">
-                <i class="fas fa-tint"></i>
-              </div>
-              <p>Stay hydrated with 8 glasses of water daily</p>
-            </li>
-          </ul>
-        </article>
-
-        <!-- Statistics Card -->
-        <article class="glass-card stats-card" aria-labelledby="stats-heading">
-          <div class="card-header">
-            <div class="card-title">
-              <i class="fas fa-chart-line" aria-hidden="true"></i>
-              <h3 id="stats-heading">Quick Stats</h3>
-            </div>
-          </div>
-          
-          <div class="stats-grid">
-            <div class="stat-box">
-              <i class="fas fa-users" aria-hidden="true"></i>
-              <div>
-                <p class="stat-value">50K+</p>
-                <p class="stat-label">Active Users</p>
-              </div>
-            </div>
-            
-            <div class="stat-box">
-              <i class="fas fa-heart" aria-hidden="true"></i>
-              <div>
-                <p class="stat-value">98%</p>
-                <p class="stat-label">Satisfaction</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Success Stories Image Banner -->
-          <div class="success-banner">
-            <img 
-              src="{{ url_for('static', filename='images/success-stories.jpg') }}" 
-              alt="Success stories from HealthTrack Pro users" 
-              class="success-image"
-              loading="lazy"
-            >
-          </div>
-        </article>
-      </aside>
-    </main>
-
-    <!-- Footer Section -->
-    <footer class="app-footer">
-      <p>&copy; 2025 HealthTrack Pro. All rights reserved.</p>
-      <nav class="footer-links" aria-label="Footer Navigation">
-        <a href="#privacy">Privacy</a>
-        <span aria-hidden="true">•</span>
-        <a href="#terms">Terms</a>
-        <span aria-hidden="true">•</span>
-        <a href="#support">Support</a>
-      </nav>
-      
-      <!-- Footer Logo -->
-      <div class="footer-logo">
-        <img 
-          src="{{ url_for('static', filename='images/logo-white.png') }}" 
-          alt="HealthTrack Pro" 
-          class="footer-logo-img"
-        >
-      </div>
     </footer>
-  </div>
-
-  <!-- JavaScript -->
-  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
